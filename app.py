@@ -32,13 +32,19 @@ def preprocess_input(user_input):
 
 @app.route('/chat', methods=['POST'])
 def chat_with_bot():
+    global chat_history  # Ensure we're working with the global chat_history
     data = request.json
     user_input = data.get('input')
 
     if user_input:
         words = preprocess_input(user_input)
 
-        if len(set(words) & {"swaasthaya","tell","swasthaya", "swaasthya","swasthya","what"}) >= 2:
+        if "exit" in words or "bye" in words:
+            chat_history = []  # Clear chat history
+            bot_response = "Goodbye!"
+            chat_history = []
+        
+        elif len(set(words) & {"swaasthaya","tell","swasthaya", "swaasthya","swasthya","what"}) >= 2:
             bot_response = ("Swaasthya is a system designed to help hospitals manage patient care, appointments, and bed availability more efficiently. It makes it easier for hospitals to keep track of everything, reduce wait times, and use their resources better. It’s user-friendly and can even work offline, making it a practical tool for improving hospital operations.")
 
         elif len(set(words) & {"manage","manages", "patient", "patients", "bed"}) >= 2:
@@ -71,7 +77,6 @@ def chat_with_bot():
         elif len(set(words) & {"opd", "slot", "book", "appointment", "how"}) >= 3:
             bot_response = ("To book a slot, visit the Appointments section on the website, select your preferred department (e.g., General Medicine, Cardiology), choose an available time slot, and complete the booking form.")
 
-
         elif len(set(words) & {"bed", "slot", "admit", "available", "how", "availability"}) >= 2:
             bot_response = ("Navigate to the Bed Availability section on the homepage to view real-time information on the availability of beds in different departments.")
 
@@ -84,14 +89,7 @@ def chat_with_bot():
         elif len(set(words) & {"review", "service", "feedback", "how"}) >= 2:
             bot_response = ("Use the Contact Us page to submit feedback or inquiries. Alternatively, you can use the chatbot on the bottom right corner of the screen for instant assistance")
         
-
-
-
-
-
-
         else:
-            
             bot_response = get_gemini_response(user_input)
 
         # Remember Sessions
