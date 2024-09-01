@@ -4,14 +4,11 @@ import os
 import google.generativeai as genai
 from flask import Flask, request, jsonify
 
-# Load environment variables from .env file
 os.environ["GOOGLE_API_KEY"] = "AIzaSyCUICsoK71QO6dbRlNDXLILrTRwrCdU-eA"
-load_dotenv()  # Load all the environment variables, including the API key
+load_dotenv()  
 
-# Configure Gemini API
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# Function to load Gemini Pro model and get responses
 model = genai.GenerativeModel("gemini-pro")
 chat = model.start_chat(history=[])
 
@@ -19,7 +16,6 @@ def get_gemini_response(question):
     response = chat.send_message(question, stream=True)
     return ''.join([chunk.text for chunk in response])
 
-# Initialize Flask app
 app = Flask(__name__)
 
 # Store chat history
@@ -42,7 +38,7 @@ def chat_with_bot():
     if user_input:
         words = preprocess_input(user_input)
 
-        if len(set(words) & {"swaasthaya", "swasthaya", "swaasthya","swasthya","what"}) >= 2:
+        if len(set(words) & {"swaasthaya","tell","swasthaya", "swaasthya","swasthya","what"}) >= 2:
             bot_response = ("Swaasthya is a system designed to help hospitals manage patient care, appointments, and bed availability more efficiently. It makes it easier for hospitals to keep track of everything, reduce wait times, and use their resources better. It’s user-friendly and can even work offline, making it a practical tool for improving hospital operations.")
 
         elif len(set(words) & {"manage","manages", "patient", "patients", "bed"}) >= 2:
@@ -88,8 +84,6 @@ def chat_with_bot():
         elif len(set(words) & {"review", "service", "feedback", "how"}) >= 2:
             bot_response = ("Use the Contact Us page to submit feedback or inquiries. Alternatively, you can use the chatbot on the bottom right corner of the screen for instant assistance")
         
-
-
 
 
 
