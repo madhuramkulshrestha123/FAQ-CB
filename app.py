@@ -44,10 +44,10 @@ def chat_with_bot():
             bot_response = "Goodbye!"
             chat_history = []
         
-        elif len(set(words) & {"swaasthaya","tell","swasthaya", "swaasthya","swasthya","what"}) >= 2:
+        elif len(set(words) & {"swaasthaya","tell","swasthaya","know","swaasthya","swasthya","what"}) >= 2:
             bot_response = ("Swaasthya is a system designed to help hospitals manage patient care, appointments, and bed availability more efficiently. It makes it easier for hospitals to keep track of everything, reduce wait times, and use their resources better. It’s user-friendly and can even work offline, making it a practical tool for improving hospital operations.")
 
-        elif len(set(words) & {"manage","manages", "patient", "patients", "bed"}) >= 2:
+        elif len(set(words) & {"manage","manages", "patient", "patients", "bed","beds"}) >= 2:
             bot_response = ("Swaasthya manages patient admission and bed availability by tracking beds in real-time and "
                             "categorizing them by type (General, ICU, NICU, Isolation). Hospital staff can update "
                             "available slots for each department, ensuring resources are used efficiently. The system "
@@ -58,7 +58,7 @@ def chat_with_bot():
                             "appointment scheduling, bed management, and departmental setups to match the specific needs "
                             "of each hospital. This flexibility ensures that the system can be tailored to efficiently handle "
                             "different hospital operations and workflows.")
-        elif len(set(words) & {"manages", "managing", "opd"}) >= 2:
+        elif len(set(words) & {"manages", "managing", "opd","opds"}) >= 2:
             bot_response = ("Swaasthya optimizes queuing in OPDs by managing appointment slots effectively. It tracks the "
                             "number of available slots in each department and allows hospital staff to update them in real-time. "
                             "This helps in reducing wait times by ensuring that appointments are scheduled efficiently, and patients "
@@ -74,13 +74,13 @@ def chat_with_bot():
         elif len(set(words) & {"safe", "secure", "data"}) >= 1:
             bot_response = ("Swaasthya ensures data security by requiring an extra layer of verification after three failed login attempts—on the fourth attempt, users must enter both their password and an OTP. Additionally, if a user is inactive for 15 minutes, the system automatically logs them out to prevent unauthorized access. These features, along with encryption, keep patient data safe and secure.")
         
-        elif len(set(words) & {"opd", "slot", "book", "appointment", "how"}) >= 3:
+        elif len(set(words) & {"opd", "slot", "book","opds", "appointment", "how"}) >= 3:
             bot_response = ("To book a slot, visit the Appointments section on the website, select your preferred department (e.g., General Medicine, Cardiology), choose an available time slot, and complete the booking form.")
 
-        elif len(set(words) & {"bed", "slot", "admit", "available", "how", "availability"}) >= 2:
+        elif len(set(words) & {"bed","beds", "slot", "admit", "available", "how", "availability"}) >= 2:
             bot_response = ("Navigate to the Bed Availability section on the homepage to view real-time information on the availability of beds in different departments.")
 
-        elif len(set(words) & {"opd", "slot", "time", "what"}) >= 2:
+        elif len(set(words) & {"opd", "slot", "time", "what","opds"}) >= 2:
             bot_response = ("OPD appointments are available in 30-minute slots from 9:00 AM to 5:00 PM, Monday to Saturday. You can check specific slot availability in the Appointments section.")
 
         elif len(set(words) & {"opd", "slot", "status", "appointment", "how"}) >= 2:
